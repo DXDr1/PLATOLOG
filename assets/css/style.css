@@ -1,0 +1,490 @@
+:root {
+    --color1: #ac4740;
+    --color2: #efa8a8;
+    --color3: #ffffff;
+    --fontcolor1: #000000;
+    --fontcolor2: #ffffff;
+    --headerheight: 6dvh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*body::-webkit-scrollbar {
+    display: none;
+}*/
+
+body {
+    background-image: url(../img/PLATO_BACKGROUND.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body.scrolled {
+    --fontcolor1: #F8F2DA;
+    --color1: #ffffff;
+    --fontcolor2: #AC4740;
+    --color3: #AC4740;
+}
+
+.header {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+header .header_bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background-color: var(--color3);
+    transition: background-color 0.2s linear;
+    backdrop-filter: blur(1px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0.5px solid var(--color1);
+    z-index: 10;
+    height: var(--headerheight);
+}
+
+
+
+header .header_bar .logo_container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10dvw;
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    height: var(--headerheight);
+}
+
+header .header_bar .logo_container .platologo {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    height: var(--headerheight);
+    top: 0;
+    transform: translate(-50%,0%);
+}
+
+.sub_header {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 3dvh;
+    width: 100dvw;
+    top: var(--headerheight);
+    left: 0;
+    background-color: var(--color1);
+    box-shadow: 0 0.8dvh 0.8dvh rgba(0, 0, 0, .4);
+    overflow: hidden;
+    z-index: 9;
+}
+
+.sub_header .workinghours,
+.sub_header .officetime {
+    position: absolute;
+    right: 2dvw;
+    height: 3dvh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-left: 1dvw;
+
+    font-size: 1.5dvh;
+    font-weight: 500;
+    color: var(--fontcolor2);
+
+    background-color: var(--color1);
+
+    transition: transform 0.45s ease;
+    z-index: 12;
+
+}
+
+.workinghours {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.officetime {
+    transform: translateY(100%);
+    opacity: 1;
+}
+
+.workinghours::before {
+    content: "";
+    display: inline-block;
+    width: 1.5dvh;
+    height: 1.5dvh;
+    margin-right: 0.3dvw;
+    background-color: var(--fontcolor2);
+
+    -webkit-mask-image: url("../img/CLOCK1.svg");
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+
+    mask-image: url("../img/CLOCK1.svg");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.clock {
+    display: inline;
+    font-weight: 500;
+}
+
+.clock {
+    text-align: end;
+}
+
+/* show-officetime hoặc hover → đổi khối */
+.sub_header.show-officetime .workinghours,
+.sub_header:hover .workinghours {
+    transform: translateY(-100%);
+    opacity: 1;
+}
+
+.sub_header.show-officetime .officetime,
+.sub_header:hover .officetime {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+.slideshow {
+    position: absolute;
+    top:0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-items: center;
+    width: 80dvw;
+    height: 3dvh;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.runner {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2dvh;
+}
+
+@media (max-width: 300px) {
+    .sub_header {
+        height: 6dvh;
+    }
+    .sub_header .workinghours, .sub_header .officetime {
+        height: 6dvh;
+    }
+    .slideshow {
+        height: 6dvh;
+    }
+} 
+
+.button {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    left: 2vw;
+    top: calc(var(--headerheight) / 2);
+    width: 3dvh;         /* CHỈNH */
+    height: 3dvh;        /* CHỈNH */
+    transform: translateY(-50%);
+    z-index: 20;
+    background-color: transparent; /* có thể bỏ màu cho sạch */
+}
+
+.menubutton {
+    width: 3dvh;         /* CHỈNH */
+    height: 3dvh;        /* CHỈNH */
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 20;
+}
+
+/* ẩn checkbox nhưng vẫn hoạt động */
+#sidebar_active {
+    display: none;
+}
+
+.menubutton::before,
+.menubutton::after,
+.menubutton span {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 100%;
+    height: 0.3dvh;        /* mỏng hơn để hợp 3dvh */
+    background: var(--fontcolor1);
+    transform: translateX(-50%);
+    border-radius: 0.25dvh;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s ease;
+}
+
+.menubutton::before {
+    top: 0.5dvh;            /* căn lại theo kích thước mới */
+}
+
+.menubutton span {
+    top: 50%
+}
+
+.menubutton::after {
+    top: calc(100% - .5dvh); /* căn dưới */
+}
+
+#sidebar_active:checked ~ .button .menubutton::before,
+#sidebar_active:checked ~ .button .menubutton::after {
+    top: calc(50% - 0.125dvh); 
+    background: #F8F2DA;
+}
+
+#sidebar_active:checked ~ .button .menubutton::before {
+    transform: translateX(-50%) rotate(45deg);
+}
+
+#sidebar_active:checked ~ .button .menubutton::after {
+    transform: translateX(-50%) rotate(-45deg);
+}
+
+#sidebar_active:checked ~ .button .menubutton span {
+    opacity: 0;
+}
+
+#sidebar_active:checked ~ #sidebar_overlay {
+    background-color: rgba(1, 1, 1, 0.3);
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    height: 100vh;
+    width: 30vw;
+    background-image: url(../img/PLATO_BACKGROUND.svg);
+    background-position: center;
+    background-position-x: 70%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    backdrop-filter: blur(10px);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    z-index: 11;
+
+    /* TRẠNG THÁI ĐÓNG */
+    transform: translateX(-100%);  /* trượt ra ngoài màn hình bên trái */
+    opacity: 0;                    /* ẩn */
+
+    /* Khi đóng: trượt 0.4s, opacity đổi SAU 0.4s (không fade, chỉ tắt) */
+    transition:
+        transform 0.4s ease-out,
+        opacity 0s linear 0.4s;
+}
+
+/* ĐỔI GRID → FLEX-COLUMN */
+.nav .menu {
+    position: absolute;
+    top: var(--headerheight);
+    left: 0;
+    width: 100%;
+    display: grid;
+    grid-auto-rows: 10dvh;
+    flex-direction: column; /* từng item là một dòng */
+    z-index: 9;
+}
+
+/* ITEM */
+.menu_item {
+    max-width: 101%;
+    width: 101%;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    position: relative; /* để z-index hoạt động */
+    transition:
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.menu a {
+    box-sizing: border-box;
+    text-decoration: none;
+    margin-right: 1dvw;
+    padding-right: 2dvw;
+    font-size: clamp(1.5rem, 2.5dvw, 15rem);
+    font-weight: 500;
+    color: #F8F2DA;
+    letter-spacing: 0.2dvw;
+    transition:
+        color 0.3s ease,
+        font-size 0.3s ease,
+        font-weight 0.3s ease;
+    z-index: 12;
+}
+
+/* HIỆU ỨNG XUẤT HIỆN LINK */
+.nav .menu .link {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* HOVER CHỈ ẢNH HƯỞNG 1 ITEM */
+.menu_item:hover {
+    background-color: #F8F2DA;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);   /* phóng nhẹ */
+    z-index: 20;              /* đè lên mấy ô khác */
+}
+
+.menu_item:hover a {
+    color: black;
+    font-size: clamp(1.5rem, 3.25dvw, 7.5rem);
+    font-weight: 700;
+}
+
+
+#sidebar_active:checked ~ .nav {
+    transform: translateX(0);  /* trượt vào */
+    opacity: 1;                /* hiện ngay */
+
+    /* Khi mở: vừa trượt, vừa hiện ngay (opacity đổi tức thì, không delay) */
+    transition:
+        transform 0.4s ease-out,
+        opacity 0s linear 0s;
+}
+
+/* responsive nav width */
+@media (max-width: 1000px) {
+    .nav {
+        background-position-x: 68%;
+        width: 80vw;
+        /* không cần chỉnh left / transform ở đây */
+    }
+    .menu a {
+        margin-right: 5dvw;
+    }
+}
+
+/* hiệu ứng xuất hiện link menu theo thứ tự */
+#sidebar_active:checked ~ .nav .menu_item .link {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#sidebar_active:checked ~ .nav .menu_item:nth-child(1) .link {
+    transition-delay: 0.45s;
+}
+
+#sidebar_active:checked ~ .nav .menu_item:nth-child(2) .link {
+    transition-delay: 0.55s;
+}
+
+#sidebar_active:checked ~ .nav .menu_item:nth-child(3) .link {
+    transition-delay: 0.65s;
+}
+
+#sidebar_active:checked ~ .nav .menu_item:nth-child(4) .link {
+    transition-delay: 0.75s;
+}
+
+#sidebar_active:checked ~ .nav .menu_item:nth-child(5) .link {
+    transition-delay: 0.85s;
+}
+
+#sidebar_active:checked ~ .nav .menu_item:nth-child(6) .link {
+    transition-delay: 0.95s;
+}
+
+
+/*FOOTER*/
+
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    height: auto;
+    min-height: 50dvh;
+    width: 100dvw;
+    display: grid;
+
+
+    background-color: #000000;
+}
+
+/* ẨN SCROLLBAR THẬT CỦA BODY (CHROME/EDGE/SAFARI) */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* ẨN SCROLLBAR THẬT CỦA BODY (CHROME / EDGE / SAFARI) */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===== CUSTOM SCROLLBAR CỐ ĐỊNH KÍCH THƯỚC + AUTO-HIDE ===== */
+#custom-scrollbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0.7dvw;          /* độ dày cố định */
+    height: 100vh;
+    pointer-events: auto; /* để bắt drag/click */
+    z-index: 9999;
+
+    opacity: 0;           /* auto-hide mặc định */
+    transition: opacity 0.25s ease;
+}
+
+/* khi cần hiện lên */
+#custom-scrollbar.visible {
+    opacity: 1;
+}
+
+#custom-thumb {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;          /* bằng width của #custom-scrollbar */
+    height: 40px;         /* sẽ được JS cập nhật lại */
+    background: rgba(172, 0, 0, 0.8); /* PLATO */
+    border-radius: 0.5dvh;   /* bo nhẹ */
+    cursor: pointer;
+}
+
+#custom-thumb:active {
+    background: rgba(172, 71, 64, 1);
+}
