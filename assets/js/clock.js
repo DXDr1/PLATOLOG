@@ -1,44 +1,61 @@
 function updateDigitalClock() {
     const now = new Date();
 
-    // Lấy giờ Bangkok
-    const timeString = now.toLocaleTimeString("en-US", {
+    // ===== TẤT CẢ LẤY THEO ASIA/BANGKOK =====
+
+    // Weekday
+    const weekday = now.toLocaleDateString("en-US", {
         timeZone: "Asia/Bangkok",
-        hour12: true,
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
+        weekday: "short"
     });
 
-    // Tạo object theo giờ Bangkok
-    const bkk = new Date(
-        now.toLocaleString("en-US", { timeZone: "Asia/Bangkok" })
-    );
+    // Day
+    const day = now.toLocaleDateString("en-US", {
+        timeZone: "Asia/Bangkok",
+        day: "2-digit"
+    });
 
-    // Lấy thứ tiếng Anh (Không viết hoa)
-    const weekday = bkk.toLocaleDateString("en-US", {
-        weekday: "short"
-    }); // Mon, Tue, Wed...
+    // Month (JAN)
+    const month = now
+        .toLocaleDateString("en-US", {
+            timeZone: "Asia/Bangkok",
+            month: "short"
+        })
+        .toUpperCase();
 
-    // Lấy ngày / tháng dạng chữ / năm
-    const day = String(bkk.getDate()).padStart(2, "0");
-
-    const month = bkk
-        .toLocaleDateString("en-US", { month: "short" })
-        .toUpperCase(); // JAN, FEB, DEC...
-
-    const year = bkk.getFullYear(); // full year 2025
+    // Year
+    const year = now.toLocaleDateString("en-US", {
+        timeZone: "Asia/Bangkok",
+        year: "numeric"
+    });
 
     const dateString = `${day}/${month}/${year}`;
 
-    const clockElement = document.getElementById("bkk_clock");
+    // Time WITH seconds
+    const timeString = now.toLocaleTimeString("en-US", {
+        timeZone: "Asia/Bangkok",
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"   // THÊM SECONDS
+    });
 
+    // Write to DOM
+    const clockElement = document.getElementById("bkk_clock");
     if (clockElement) {
-        clockElement.textContent = `Local Time: ${weekday} - ${dateString} - ${timeString}`;
+        clockElement.textContent =
+            `Local Time: ${weekday} - ${dateString} - ${timeString}`;
+    }
+
+    // Sync width of workinghours + officetime
+    if (typeof syncSubHeaderWidths === "function") {
+        syncSubHeaderWidths();
     }
 }
 
+
+// ===== INIT =====
 document.addEventListener("DOMContentLoaded", () => {
     updateDigitalClock();
-    setInterval(updateDigitalClock, 1000);
+    setInterval(updateDigitalClock, 1000); // update mỗi giây
 });
