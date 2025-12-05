@@ -43,7 +43,7 @@ header .header_bar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100dvw;
     background-color: var(--color3);
     transition: background-color 0.2s linear;
     backdrop-filter: blur(1px);
@@ -460,7 +460,7 @@ body::-webkit-scrollbar {
     position: fixed;
     top: 0;
     right: 0;
-    width: 0.7dvw;          /* độ dày cố định */
+    width: 0.5dvw;          /* độ dày cố định */
     height: 100vh;
     pointer-events: auto; /* để bắt drag/click */
     z-index: 9999;
@@ -480,11 +480,13 @@ body::-webkit-scrollbar {
     right: 0;
     width: 100%;          /* bằng width của #custom-scrollbar */
     height: 40px;         /* sẽ được JS cập nhật lại */
-    background: rgba(172, 0, 0, 0.8); /* PLATO */
-    border-radius: 0.5dvh;   /* bo nhẹ */
+    background: rgba(139, 0, 0, 0.719); /* PLATO */
+    border: 0.03dvw rgba(139, 0, 0, 0.719) solid;
     cursor: pointer;
+    border-radius: 10dvw;
 }
 
 #custom-thumb:active {
-    background: rgba(172, 71, 64, 1);
+    background: rgba(139, 0, 0, 1);
+    border: 0.03dvw #F8F2DA solid
 }
